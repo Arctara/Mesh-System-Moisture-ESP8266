@@ -24,6 +24,11 @@ WebSocketsClient webSocket;
 DynamicJsonDocument data(1024);
 DynamicJsonDocument receivedData(1024);
 
+//* Device Name
+const String deviceName = "sensor-3";
+const String sensorType = "moistureSensor";
+const String centerName = "center";
+
 void sendData();
 void webSocketEvent(WStype_t type, uint8_t* payload, size_t length);
 
@@ -74,8 +79,9 @@ void loop() {
 }
 
 void sendData() {
-  data["from"] = "moisture-sensor";
-  data["to"] = "center";
+  data["from"] = deviceName;
+  data["sensorType"] = sensorType;
+  data["to"] = centerName;
   data["data"] = reading;
   String msg;
   serializeJson(data, msg);
