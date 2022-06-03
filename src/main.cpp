@@ -55,6 +55,13 @@ void loop() {
     previousMillis = currentMillis;
     Serial.println("Sending Data");
 
+    if (webSocket.isConnected()) {
+      Serial.println("WebSocket Connected");
+    } else {
+      Serial.println("Connecting (Please Connect)");
+      webSocket.begin("192.168.5.1", 80, "/ws");
+    }
+
     sensorReading = analogRead(A0);
     Serial.println(sensorReading);
 
@@ -69,9 +76,9 @@ void loop() {
       Serial.println("Kering");
     }
 
-    if (reading != prevReading) {
-      sendData();
-    }
+    // if (reading != prevReading) {
+    sendData();
+    // }
   }
   prevReading = reading;
 
@@ -82,7 +89,8 @@ void sendData() {
   data["from"] = deviceName;
   data["sensorType"] = sensorType;
   data["to"] = centerName;
-  data["data"] = reading;
+  // data["data"] = reading;
+  data["data"] = sensorReading;
   String msg;
   serializeJson(data, msg);
   webSocket.sendTXT(msg);
