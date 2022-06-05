@@ -76,9 +76,9 @@ void loop() {
       Serial.println("Kering");
     }
 
-    // if (reading != prevReading) {
-    sendData();
-    // }
+    if (reading != prevReading) {
+      sendData();
+    }
   }
   prevReading = reading;
 
@@ -89,8 +89,8 @@ void sendData() {
   data["from"] = deviceName;
   data["sensorType"] = sensorType;
   data["to"] = centerName;
-  // data["data"] = reading;
-  data["data"] = sensorReading;
+  data["data"] = reading;
+  // data["data"] = sensorReading;
   String msg;
   serializeJson(data, msg);
   webSocket.sendTXT(msg);
