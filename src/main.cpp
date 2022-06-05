@@ -65,13 +65,13 @@ void loop() {
     sensorReading = analogRead(A0);
     Serial.println(sensorReading);
 
-    if (sensorReading <= 430) {
+    if (sensorReading <= 295) {
       reading = "Terlalu banyak air";
       Serial.println("Terlalu banyak air");
-    } else if (sensorReading > 430 && sensorReading < 350) {
+    } else if (sensorReading > 295 && sensorReading < 449) {
       reading = "Basah";
       Serial.println("Basah");
-    } else if (sensorReading >= 350) {
+    } else if (sensorReading >= 449) {
       reading = "Kering";
       Serial.println("Kering");
     }
